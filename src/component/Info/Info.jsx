@@ -1,12 +1,19 @@
 import React,{useEffect, useState} from 'react';
 import { useParams } from 'react-router'
-import Product from '../Product/Product';
+
+import { useDispatch } from 'react-redux';
+import { addCart } from '../../redux/action/index';
+
 
 const Info = () => {
     const {id} = useParams();
     const [info,setInfo] = useState([]);
-    const [loading, setLoading] = useState([]);
+    const [loading, setLoading] = useState(false);
     
+    const dispatch = useDispatch();
+    const addProduct = (pro) => {
+        dispatch(addCart(pro));
+    }
 
     useEffect(()=>{
         const getInfo = async () => {
@@ -17,6 +24,7 @@ const Info = () => {
         }
         getInfo();
     },[]);
+    
     const Loading = () =>{
         return(
             <>
@@ -46,7 +54,7 @@ const Info = () => {
                     <p className=''>
                         {info.description}
                     </p>
-                    <button className="btn btn-outline-dark">Add to Cart</button>
+                    <button className="btn btn-outline-dark" onClick={()=>addProduct(info)}>Add to Cart</button>
                 </div>
 
             </>

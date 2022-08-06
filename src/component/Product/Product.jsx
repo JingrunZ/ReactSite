@@ -20,9 +20,9 @@ const Product = () => {
                 componentMounted = false
             }
         }
-
         getProducts();
     }, []);
+
     const Loading = () => {
         return (
             <>
@@ -30,6 +30,7 @@ const Product = () => {
             </>
         )
     }
+
     const filterProduct = (category) => {
         const updatedList = data.filter((x)=>x.category === category);
         setFilter(updatedList);
@@ -76,10 +77,8 @@ const Product = () => {
                 </div>
                 <div className='row justify-content-center'>
                     {loading ? <Loading /> : <ShowProducts />}
-
                 </div>
             </div>
-
         </div>
     )
 }
