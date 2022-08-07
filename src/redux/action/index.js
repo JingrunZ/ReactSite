@@ -5,6 +5,13 @@ export const addCart = (product) => {
     }
 }
 
+export const minusCart = (product) => {
+    return{
+        type:"MINITEM",
+        payload:product
+    }
+}
+
 export const delCart = (product) => {
     return{
         type:"DELITEM",

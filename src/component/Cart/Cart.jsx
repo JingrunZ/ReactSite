@@ -1,17 +1,27 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { delCart } from '../../redux/action/index';
+import { delCart, addCart,minusCart } from '../../redux/action/index';
 import { NavLink } from 'react-router-dom';
 
 const Cart = () => {
     const state = useSelector((state)=>state.handleCart)
-    const dispatch = useDispatch()
 
+    const allUnique = [
+        ...new Map(state.map((item) => [item["title"], item])).values(),
+    ];
+
+    const dispatch = useDispatch()
     const handleClose = (item) => {
         dispatch(delCart(item))
     }
+    const handlePlus = (item) => {
+        dispatch(addCart(item))
+    }
+    const handlemMinus = (item) => {
+        dispatch(minusCart(item))
+    }
 
-    const cartItems = (cartItems) => {
+    const cartItems = (cartItems) => { 
         return(
             <div className='px-4 my-5 bg-light rounded-3'>
                 <div className='container py-4'>
@@ -22,7 +32,11 @@ const Cart = () => {
                         </div>
                         <div className='col-md-4'>
                             <h3>{cartItems.title}</h3>
-                            <p></p>
+                            <p className='lead fw-bold'>
+                                {state.filter(x => x.title===cartItems.title).length} × ${cartItems.price} = ${state.filter(x => x.title===cartItems.title).length * cartItems.price}
+                            </p>
+                            <button className="btn btn-outline-dark me-4" onClick={() => handlemMinus(cartItems)}><i className='fa fa-minus'></i></button>
+                            <button className="btn btn-outline-dark me-4" onClick={() => handlePlus(cartItems)}><i className='fa fa-plus'></i></button>
                         </div>
                     </div>
                 </div>
@@ -57,7 +71,7 @@ const Cart = () => {
     return(
         <>
             {state.length ===0 && emptyCart()}
-            {state.length !==0 && state.map(cartItems)}
+            {state.length !==0 && allUnique.map(cartItems)}
             {state.length !==0 && button()}
         </>    
     );

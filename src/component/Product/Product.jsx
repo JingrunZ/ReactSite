@@ -50,12 +50,12 @@ const Product = () => {
                     return (
                         <>
                             <div className='col-md-3'>
-                                <div class="card h-100 text-center p-4" key={product.id}>
-                                    <img src={product.image} class="card-img-top" alt={product.title} height="250px"/>
-                                        <div class="card-body fw-bolder">
-                                            <h5 class="card-title mb-0">{product.title.substring(0,12)}..</h5>
-                                            <p class="card-text">${product.price}</p>
-                                            <NavLink to={`/info/${product.id}`} class="btn btn-outline-dark me-2">More Info</NavLink>
+                                <div className="card h-100 text-center p-4" key={product.id}>
+                                    <img src={product.image} className="card-img-top" alt={product.title} height="250px"/>
+                                        <div className="card-body fw-bolder">
+                                            <h5 className="card-title mb-0">{product.title.substring(0,12)}..</h5>
+                                            <p className="card-text">${product.price}</p>
+                                            <NavLink to={`/info/${product.id}`} className="btn btn-outline-dark me-2">More Info</NavLink>
                                         </div>
                                 </div>
                             </div>

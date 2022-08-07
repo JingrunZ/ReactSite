@@ -3,15 +3,21 @@ import { useSelector } from 'react-redux';
 
 const Checkout = () => {
     const state = useSelector((state)=>state.handleCart)
+
+    const allUnique = [
+      ...new Map(state.map((item) => [item["title"], item])).values(),
+    ];
+
     var total = 0 ;
     const itemList = (item) => {
-        total = total + item.price;
+      total = total + item.price;
+    total = Math.round((total + Number.EPSILON) * 100) / 100
         return(
             <li className='list-group-item d-flex justify-content-between 1h-sm'>
                 <div>
                     <h6 className='my-0'>{item.title}</h6>
                 </div>
-                <span className='text-muted'>${item.price}</span>
+                <span className='text-muted'>{state.filter(x => x.title===item.title).length} × ${item.price} = ${state.filter(x => x.title===item.title).length * item.price}</span>
             </li>
         );
     }
@@ -26,7 +32,7 @@ const Checkout = () => {
           <span className="badge bg-primary rounded-pill">{state.length}</span>
         </h4>
         <ul className="list-group mb-3">
-            {state.map(itemList)}
+            {allUnique.map(itemList)}
 
             <li className='list-group-item d-flex justify-content-between'>
                 <span>Total (USD)</span>
