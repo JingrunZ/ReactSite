@@ -16,9 +16,8 @@ const Product = () => {
                 setFilter(await response.json());
                 setLoading(false)
             }
-            return () => {
-                componentMounted = false
-            }
+            console.log(componentMounted);
+
         }
         getProducts();
     }, []);
